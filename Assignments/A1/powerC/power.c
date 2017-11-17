@@ -1,0 +1,87 @@
+//-----------------------------------------
+// NAME: ZAFAR ALAM
+// STUDENT NUMBER: 7738894
+// COURSE: COMP 2160, SECTION: A01
+// INSTRUCTOR: Stela Seo
+// ASSIGNMENT: assignment 1, QUESTION: question 1
+//
+// REMARKS: Converted from Java. Print two algorithmic arithmetics using Powers.
+//
+//-----------------------------------------
+
+#include <stdio.h>
+
+
+double power1();
+double power2();
+
+int count;
+#define BASE_LENGTH 4
+
+int main(void)
+{
+
+
+    double base[] = {1.4,1.3,1.2,1.1};
+    int index[] = {5, 20, 63, 73};
+    double value;
+
+    double *basePtr;
+    basePtr = &(base[1]);
+    printf("%f",*basePtr);
+    printf("\nTest two alorithms for powering\n");
+    int i;
+    for (i = 0; i<BASE_LENGTH; i = i+1)
+    {
+                count = 0;
+
+        value = power1(base[i], index[i]);
+
+        printf("1: %.1f ^ %d = %-.17g , used %d multiplies\n", base[i], index[i], value, count);
+
+        count = 0;
+
+        value = power2(base[i], index[i]);
+
+        printf("2: %.1f ^ %d = %-.17g , used %d multiplies\n", base[i], index[i], value, count);
+        printf("\n");
+    }
+    printf("END OF PROCESSING\n");
+}
+
+double power1(double base, int index)
+{
+    double retValue;
+    if( index == 0 )
+    {
+        retValue = 1;
+    } else
+    {
+        retValue = base*power1(base,index-1);
+        count++;
+    }
+    return retValue;
+}
+
+double power2(double base, int index)
+{
+    double retValue;
+    double temp;
+
+    if( index == 0 )
+    {
+        retValue = 1;
+    }
+    else if(index%2 == 1)
+    {
+        retValue = base*power2(base,index-1);
+        count++;
+    }
+    else
+    {
+        temp = power2(base, index/2);
+        retValue = temp*temp;
+        count++;
+    }
+    return retValue;
+}

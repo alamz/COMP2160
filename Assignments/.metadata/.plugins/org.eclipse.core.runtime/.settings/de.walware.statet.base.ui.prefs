@@ -1,0 +1,12 @@
+//editors/optionsParameters.background=30,30,30
+//editors/optionsParameters.foreground=216,216,216
+//editors/optionsProposals.background=30,30,30
+//editors/optionsProposals.foreground=216,216,216
+//predarkestdark.editors/optionsParameters.background=25,25,25
+//predarkestdark.editors/optionsParameters.foreground=255,255,255
+//predarkestdark.editors/optionsProposals.background=25,25,25
+//predarkestdark.editors/optionsProposals.foreground=255,255,255
+MatchingBrackets.color=0,0,0
+eclipse.preferences.version=1
+overriddenByCSS=,editors/optionsParameters.foreground,editors/optionsProposals.foreground,editors/optionsParameters.background,MatchingBrackets.color,editors/optionsProposals.background,
+predarkestdark.MatchingBrackets.color=97,97,97

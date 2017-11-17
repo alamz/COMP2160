@@ -1,0 +1,28 @@
+19:54:57 **** Incremental Build of configuration Debug for project A3 ****
+make all 
+Building file: ../Table.c
+Invoking: Cygwin C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Table.d" -MT"Table.o" -o "Table.o" "../Table.c"
+Finished building: ../Table.c
+ 
+Building target: A3.exe
+Invoking: Cygwin C Linker
+gcc  -o "A3.exe"  ./Table.o   
+Finished building target: A3.exe
+ 
+09:41:41 **** Clean-only build of configuration Debug for project A3 ****
+make clean 
+rm -rf  ./Table.o  ./Table.d  A3.exe
+ 
+09:41:42 **** Clean-only build of configuration Debug for project Biggest ****
+make clean 
+rm -rf  ./biggest_v2.o  ./biggest_v2.d  Biggest.exe
+ 
+09:41:42 **** Clean-only build of configuration Debug for project hw2 ****
+make clean 
+rm -rf  ./concordLLStart.o  ./concordLLStart.d  hw2.exe
+ 
+09:41:43 **** Clean-only build of configuration Debug for project power ****
+make clean 
+rm -rf  ./pointer_test.o ./power.o  ./pointer_test.d ./power.d  power.exe
+ 

@@ -1,0 +1,7 @@
+09:41:43 **** Clean-only build of configuration Debug for project power ****
+make clean 
+rm -rf  ./pointer_test.o ./power.o  ./pointer_test.d ./power.d  power.exe
+ 
+
+09:41:43 Build Finished (took 300ms)
+

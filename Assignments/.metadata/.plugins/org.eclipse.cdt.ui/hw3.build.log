@@ -1,0 +1,10 @@
+19:12:16 **** Incremental Build of configuration Debug for project hw3 ****
+make all 
+Building target: hw3
+Invoking: Cross GCC Linker
+gcc  -o "hw3"  ./Table.o   
+Finished building target: hw3
+ 
+
+19:12:17 Build Finished (took 834ms)
+

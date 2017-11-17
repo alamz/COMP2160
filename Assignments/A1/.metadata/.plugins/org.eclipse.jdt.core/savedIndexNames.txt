@@ -1,0 +1,2 @@
+INDEX VERSION 1.130+C:\Users\hp8460p\Documents\Coding\COMP2160\Assignments\A1\.metadata\.plugins\org.eclipse.jdt.core
+1726460054.index

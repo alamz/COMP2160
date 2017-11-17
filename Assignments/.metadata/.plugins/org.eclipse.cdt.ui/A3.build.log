@@ -1,0 +1,7 @@
+09:41:41 **** Clean-only build of configuration Debug for project A3 ****
+make clean 
+rm -rf  ./Table.o  ./Table.d  A3.exe
+ 
+
+09:41:42 Build Finished (took 608ms)
+

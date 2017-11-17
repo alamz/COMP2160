@@ -1,0 +1,7 @@
+09:41:42 **** Clean-only build of configuration Debug for project hw2 ****
+make clean 
+rm -rf  ./concordLLStart.o  ./concordLLStart.d  hw2.exe
+ 
+
+09:41:43 Build Finished (took 304ms)
+

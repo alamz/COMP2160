@@ -1,0 +1,8 @@
+#include <assert.h>
+
+assert(variable); //return bool
+
+clang -Wall -NDEBUG to remove assert in production code
+
+call assert on a library function or a user defined function to validate
+
