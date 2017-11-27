@@ -12,6 +12,8 @@
 // CONSTANTS and TYPES
 //-------------------------------------------------------------------------------------
 
+#define PHONES_COUNT 11
+
 typedef enum BOOL { false, true } Boolean;
 
 typedef struct NODE Node;
@@ -20,6 +22,7 @@ struct NODE{
   Node *next;
 };
 
+//Make a table of linked lists.
 typedef struct LLIST List;
 struct LLIST{
   Node *headNode;
@@ -31,7 +34,8 @@ struct LLIST{
 //-------------------------------------------------------------------------------------
 // PROTOTYPES
 //-------------------------------------------------------------------------------------
-
+void loadFile(List * wordFromFile);
+void printConcordance(List * wordFromFile);
 // add an element to the beginning of the linked list
 Boolean insert(List * currentList, char *new_string );
 // empty the list so that we clear all memory and can start a fresh list
@@ -45,6 +49,11 @@ char * nextItem(List * currentList);
 Boolean delete(List * currentList, char * wordToDelete);
 void validateTable(List * currentList);
 List * createTable();
-Boolean destroyTable();
+Boolean destroyEveryTable();
+Boolean destroyTable(List * toDestroy);
+
+void printPhones(List * phoneList);
+void createTestTables(List * testSubject);
+void testDeletion(List * testTable);
 
 #endif /* TABLE_H_ */

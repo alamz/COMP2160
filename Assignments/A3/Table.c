@@ -1,9 +1,13 @@
-/*
- * Table.c
- *
- *  Created on: Nov 6, 2017
- *      Author: hp8460p
- */
+//-----------------------------------------
+// NAME: ZAFAR ALAM
+// STUDENT NUMBER: 7738894
+// COURSE: COMP 2160, SECTION: A01
+// INSTRUCTOR: Stela Seo
+// ASSIGNMENT: assignment 3, QUESTION: question 1
+//
+// REMARKS: Make a Table using a Linked List to store multiple linked lists.
+//
+//-----------------------------------------
 
 #include <stdio.h>
 #include <string.h>
@@ -18,7 +22,7 @@
 
 List *headTable = NULL;
 // used to track where we are for the list traversal methods
-Node *traverseNode = NULL;
+Node *traverseNode= NULL;
 
 // used to track testing values
 int numLists = 0;
@@ -27,124 +31,13 @@ int numLists = 0;
 // FUNCTIONS
 //-------------------------------------------------------------------------------------
 
-// read from standard input, tokenize and insert words into a linked list
-// note that we must ensure that there are no duplicates in our list
-void loadFile(List * wordFromFile){
-#define LINE_SIZE 256
-  char input[LINE_SIZE];
-  char *token = NULL;
-
-  while ( fgets( input, LINE_SIZE, stdin ) ) {
-    // parse the data into separate elements
-    token = strtok( input, " \t\n" );
-    while ( token ){
-      if ( !search(wordFromFile, token ) )
-      {
-    	  insert( wordFromFile, token );
-      }
-      token = strtok( NULL, " \t\n" );
-    }// while ( token )
-  }// while( fgets...
-}// loadFile
-
-// print the contents of the linked list to standard output
-void printConcordance(List * wordFromFile){
-	FILE * words = fopen("./wordFromFile_ZA.txt","w");
-	char *theWord = firstItem(wordFromFile);
-
-	while ( theWord )  {
-		printf( "%s\n", theWord );
-		fprintf(words,"%s\n", theWord );
-		theWord = nextItem(wordFromFile);
-	}
-	fclose(words);
-}// printConcordance
-
-int main( int argc, char *argv[] ){
-	printf("\nStarted Main\n");
-	List * wordFromFile = NULL;
-	wordFromFile = createTable();
-	printf("loading file in a list\n");
-
-	loadFile(wordFromFile);
-	printConcordance(wordFromFile);
-//	clearTable(wordFromFile);
-
-	List * subjects = NULL;
-	subjects = createTable();
-	insert(subjects, "CLanguage");
-	insert(subjects, "Physics");
-	insert(subjects, "Signals");
-	insert(subjects, "Interfacing");
-	insert(subjects, "HCI");
-	insert(subjects, "Math1");
-	insert(subjects, "Math2");
-	insert(subjects, "Math3");
-	insert(subjects, "Quantum");
-	insert(subjects, "Java");
-
-	List * phones = NULL;
-	phones = createTable();
-	insert(phones, "iPhone 7");
-	insert(phones, "iPhone 1");
-	insert(phones, "iPhone 3");
-	insert(phones, "iPhone 5");
-	insert(phones, "iPhone 3G");
-	insert(phones, "iPhone 4s");
-	insert(phones, "iPhone 6s");
-	insert(phones, "iPhone X");
-	insert(phones, "HTC m8");
-	insert(phones, "HTC U11");
-	insert(phones, "Samsung Galaxy S3");
-	insert(phones, "Samsung Galaxy S6 Edge");
-	insert(phones, "Samsung Galaxy S8");
-	insert(phones, "Samsung Galaxy Note 3");
-	insert(phones, "Samsung Galaxy Note 8");
-//	clearTable(anotherList);
-
-	List * currList = headTable;
-
-	printf("PRINT TABLE \n");
-	printf("list head %s \n",firstItem(headTable));
-	Node * currNode = currList->headNode;
-	int i = 0;
-
-	while(currList->nextList != NULL)
-	{
-		printf("list: %d current node -> %s \n",i,currNode->item);
-		currNode = currNode->next;
-
-		if(currNode == NULL)
-		{
-			currList = currList->nextList;
-			if(currList == NULL)
-				printf("LIST IS EMPTY (UNINITIALIZED)\n");
-			else
-			{
-				printf("list: %d head -> %s \n",i,currList->headNode->item);
-				i++;
-				currNode = currList->headNode;
-			}
-
-		}
-	}
-
-	printf("PRINT TABLE - SUCCESSFULL\n");
-	clearTable(wordFromFile);
-	clearTable(subjects);
-	clearTable(phones);
-	printf("CLEAR TABLE - SUCCESSFULL\n");
-
-	return EXIT_SUCCESS;
-}// main
-
 //-------------------------------------------------------------------------------------
 // Linked List Implementation
 //-------------------------------------------------------------------------------------
 
 /*
  * This function will make an empty linked list. this does not initialize it.
- * return: a pointer of the newList.
+ * return: a pointer to the newList.
  */
 List * createTable()
 {
@@ -166,52 +59,87 @@ List * createTable()
 	return newList;
 }
 
-Boolean destroyTable()
+Boolean destroyTable(List * toDestroy)
+{
+	Boolean isDestroyed = false;
+	List * curList = headTable;
+
+	//if an empty is to be destroyed
+	if(toDestroy == NULL)
+	{
+		assert(toDestroy != NULL);
+		return isDestroyed;
+	}
+
+	//empties the list (frees memory for nodes in this list)
+	clearTable(toDestroy);
+	//list still exists, but no nodes
+
+	if(headTable == toDestroy)		//if Table to destroy is headTable
+		headTable = curList->nextList;
+	free ( toDestroy );
+	isDestroyed = true;
+
+	numLists--; //decrease number of lists in the table
+
+	return isDestroyed;
+
+}
+
+Boolean destroyEveryTable()
 {
 	Boolean destroyed = false;
 
 	List * listTraverser = headTable;
-	while(headTable != NULL)
+	while(headTable != NULL)	//headTable will move its pointer to nextList
 	{
-		headTable = listTraverser->nextList;
-		clearTable(listTraverser);
-		free( listTraverser );
-		listTraverser = headTable;
+		headTable = listTraverser->nextList;	//head of Table will skip this list
+		clearTable(listTraverser);	//frees memory for all nodes and their items
+		free( listTraverser );	//now free this list object
+		listTraverser = headTable;	//move to next list.
 		numLists--;
 	}
 	if(headTable == NULL)
 		destroyed = true;
+	else
+		assert(headTable == NULL);
 	return destroyed;
 }
 
-
 Boolean delete(List * currentList,char * wordToDelete)
 {
+	Boolean deleted = false;
+
+	if(currentList == NULL) {
+		assert(currentList != NULL);
+		printf("This list is not created\n");
+		return deleted;
+	}
+	char * listItem = firstItem(currentList);
 	Node * current = currentList->headNode;
 	Node * previous = NULL;
-	Boolean deleted = false;
-	if (currentList->headNode == NULL)
-	{
-		assert(currentList->headNode == NULL);
-	}
-	else if (wordToDelete == NULL)
+
+
+	if (wordToDelete == NULL)
 	{
 		assert(wordToDelete != NULL);
+		return deleted;
 	}
 	else
 	{
-		while(current != NULL)
+
+		while(currentList->numTraversals <= currentList->numNodes)
 		{
-			if(strcmp(current->item,wordToDelete) == 0)
+			if(strcmp(listItem,wordToDelete) == 0)
 			{
-				if(current == currentList->headNode ) //head points to wordToDelete
+				if(currentList->numTraversals == 1 ) //head points to wordToDelete NODE
 				{
-					currentList->headNode =current->next; //head/current -> wordToDelete -> next (before op) => (after op) head -> next and current -> wordToDelete
-					free(current->item);
+					currentList->headNode = current->next;
+					free(listItem);
 					free(current);
 					deleted = true;
 					currentList->numNodes--;
-					current = currentList->headNode;
+					//current = currentList->headNode;
 				}
 				else //wordToDelete is in middle or end, it is not head
 				{
@@ -228,10 +156,11 @@ Boolean delete(List * currentList,char * wordToDelete)
 			{
 				previous = current;
 				current = current->next;
+				listItem = nextItem(currentList);
 			}
-		}
-		assert(deleted);
-	}
+		}//while
+	}//if-else
+	printf("This item is not in this list\n");
 	return deleted;
 }
 
@@ -250,6 +179,7 @@ Boolean insert(List * currentList, char *new_string ){
   Boolean rc = false;
   Node *newNode = NULL;
 
+  assert( currentList != NULL );
   assert( new_string != NULL );
   if ( new_string ){
     newNode = (Node *)malloc( sizeof( Node ) );
@@ -330,7 +260,12 @@ Boolean search(List * currentList, char *target ){
 char * firstItem(List * currentList){
 
 	char *the_item = NULL;
-
+	if(currentList == NULL)
+	{
+		assert(currentList != NULL);
+		printf("This list is not created");
+		return the_item;
+	}
 	traverseNode = currentList->headNode;
 
 	if ( traverseNode != NULL ) {
